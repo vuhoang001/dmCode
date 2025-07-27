@@ -1,9 +1,8 @@
-﻿using System.Windows.Input;
-using BuildingBlocks;
+﻿using BuildingBlocks;
 
 namespace Catalog.API.Product.Create;
 
-public record CreateProductCommand(
+public  record CreateProductCommand(
     string Name,
     List<string> Categories,
     string? Description,
@@ -11,7 +10,7 @@ public record CreateProductCommand(
     string? ImageLink
 ) : ICommand<CreateProductResult>;
 
-public record CreateProductResult(Guid Id, string Name, string? Description, decimal Price, string? ImageLink);
+public  record CreateProductResult(Guid Id, string Name, string? Description, decimal Price, string? ImageLink);
 
 public class CreateProductHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
