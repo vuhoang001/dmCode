@@ -2,7 +2,7 @@
 
 namespace Catalog.API.Product.Create;
 
-public  record CreateProductCommand(
+public record CreateProductCommand(
     string Name,
     List<string> Categories,
     string? Description,
@@ -10,11 +10,11 @@ public  record CreateProductCommand(
     string? ImageLink
 ) : ICommand<CreateProductResult>;
 
-public  record CreateProductResult(Guid Id, string Name, string? Description, decimal Price, string? ImageLink);
+public record CreateProductResult(Guid Id, string Name, string? Description, decimal Price, string? ImageLink);
 
-public class CreateProductHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+public class CreateProductHandler(IDocumentSession session) : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
-    public Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         var product = new Models.Product
         {
@@ -25,6 +25,9 @@ public class CreateProductHandler : ICommandHandler<CreateProductCommand, Create
             Price = command.Price,
         };
 
-        return Task.FromResult(product.Adapt<CreateProductResult>());
+        session.Store(product);
+        await session.SaveChangesAsync(cancellationToken);
+
+        return product.Adapt<CreateProductResult>();
     }
 }
