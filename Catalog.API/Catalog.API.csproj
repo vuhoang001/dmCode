@@ -8,17 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BuildingBlocks\BuildingBlocks.csproj" />
+        <ProjectReference Include="..\BuildingBlocks\BuildingBlocks.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Carter" Version="7.2.0" />
+        <PackageReference Include="Carter" Version="7.2.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

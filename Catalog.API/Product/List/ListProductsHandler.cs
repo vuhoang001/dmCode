@@ -1,8 +1,9 @@
 ﻿using BuildingBlocks;
+using Marten.Pagination;
 
 namespace Catalog.API.Product.List;
 
-public record ListProductsQuery() : IQuery<ListProductsResult>
+public record ListProductsQuery(int PageNumber = 1, int PageSize = 20) : IQuery<ListProductsResult>
 {
 }
 
@@ -13,8 +14,8 @@ public class ListProductsHandler(IDocumentSession session, ILogger<ListProductsH
 {
     public async Task<ListProductsResult> Handle(ListProductsQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Handling ListProductsQuery");
-        var products = await session.Query<Models.Product>().ToListAsync();
+        var products = await session.Query<Models.Product>()
+            .ToPagedListAsync(request.PageNumber, request.PageSize, cancellationToken);
         return new ListProductsResult(products);
     }
 }

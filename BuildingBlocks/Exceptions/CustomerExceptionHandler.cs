@@ -64,6 +64,8 @@ public class CustomerExceptionHandler(ILogger<CustomerExceptionHandler> logger) 
             problemDetails.Extensions.Add("ValidationErrors", validationException.ValidationResult);
         }
 
+        httpContext.Response.StatusCode = statusCode;
+
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
         return true;
