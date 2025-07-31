@@ -17,7 +17,6 @@ public class CreateProductHandler(IDocumentSession session, IValidator<CreatePro
 {
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        // throw new Exception("Toi ten la hoang");
         var product = new Models.Product
         {
             Name        = command.Name,
