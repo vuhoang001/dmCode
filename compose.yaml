@@ -1,0 +1,50 @@
+﻿services:
+  basket.api:
+    image: basket.api
+    build:
+      context: .
+      dockerfile: Basket.API/Dockerfile
+    depends_on:
+      - catalogdb
+    environment:
+      - ConnectionStrings__Database=Host=catalogdb;Port=5432;Database=CatalogDb;Username=postgres;Password=postgres
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8082
+    ports:
+      - "6001:8082"
+    restart: always
+  catalog.api:
+    image: catalog.api
+    build:
+      context: .
+      dockerfile: Catalog.API/Dockerfile
+    depends_on:
+      - catalogdb
+    environment:
+      - ConnectionStrings__Database=Host=catalogdb;Port=5432;Database=CatalogDb;Username=postgres;Password=postgres
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    restart: always
+  catalogdb:
+    container_name: catalogdb
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CatalogDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_catalog:/var/lib/postgresql/data
+  distributedcache:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+volumes:
+  postgres_catalog:      
+

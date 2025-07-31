@@ -1,0 +1,38 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  basket.api:
+    build:
+      context: "D:\\lanh_thoi_dung_mua\\dmCode"
+      dockerfile: "Basket.API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Basket.API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "basket.api:dev"
+    ports: []
+    volumes:
+    - "D:\\lanh_thoi_dung_mua\\dmCode\\Basket.API:/app:rw"
+    - "D:\\lanh_thoi_dung_mua\\dmCode:/src:rw"
+    - "C:\\Users\\foxai\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  catalog.api:
+    build:
+      context: "D:\\lanh_thoi_dung_mua\\dmCode"
+      dockerfile: "Catalog.API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/Catalog.API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "catalog.api:dev"
+    ports: []
+    volumes:
+    - "D:\\lanh_thoi_dung_mua\\dmCode\\Catalog.API:/app:rw"
+    - "D:\\lanh_thoi_dung_mua\\dmCode:/src:rw"
+    - "C:\\Users\\foxai\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
